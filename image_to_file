@@ -11,20 +11,23 @@ each row of characters fits on the screen without wrapping.
 =end
 
 require "rubygems"
+require "bundler/setup"
 require "RMagick"
 include Magick
 
 path = ARGV[0]
-output_name = File.basename(path).split(".")[0...-1].join
+output_name = ARGV[1] || File.basename(path).split(".")[0...-1].join
 
 `convert -colorspace Gray -ordered-dither o2x2 #{path} #{output_name}.bmp`
 img = ImageList.new("#{output_name}.bmp")[0]
 bits = []
 output_file = "#{output_name}.data"
+width = img.columns
+height = img.rows
 img.each_pixel { |pixel, _, _| bits << (pixel.red > 0 ? 0 : 1) }
 bytes = []; bits.each_slice(8) { |s| bytes << ("0" + s.join).to_i(2) }
 File.open(output_name, "w") do |f|
   f.write(bytes.pack("C*"))
 end
 
-puts "wrote #{bytes.length} bytes to #{output_name}.data"
+puts "wrote #{bytes.length} bytes to #{output_name}.data (#{width}x#{height})"
