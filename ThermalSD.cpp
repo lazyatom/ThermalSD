@@ -5,7 +5,7 @@ void ThermalSD::printBitmap(int w, int h, File file) {
   for (int rowStart=0; rowStart < h; rowStart += 256) {
     int chunkHeight = ((h - rowStart) > 255) ? 255 : (h - rowStart);
     writeBytes(18, 42);
-    writeBytes(h, w/8);
+    writeBytes(chunkHeight, w/8);
     for (int i=0; i<((w/8)*chunkHeight); i++) {
       PRINTER_PRINT((uint8_t)file.read());
     }
