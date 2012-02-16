@@ -11,3 +11,16 @@ void ThermalSD::printBitmap(int w, int h, File file) {
     }
   }
 };
+
+void ThermalSD::printBitmap(File file) {
+  uint8_t tmp;
+  uint16_t width, height;
+
+  tmp = file.read();
+  width = (file.read() << 8) + tmp;
+
+  tmp = file.read();
+  height = (file.read() << 8) + tmp;
+
+  printBitmap(width, height, file);
+};

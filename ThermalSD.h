@@ -12,5 +12,6 @@ class ThermalSD : public Thermal {
     };
 
     void printBitmap(int w, int h, File file);
+    void printBitmap(File file);
 };
 #endif
