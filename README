@@ -1,1 +1,5 @@
+FYI - This library is no longer needed, as the normal Thermal library can now print from "Stream" objects.
+-----------
+
+
 This is a simple library extending the Thermal class to enable printing larger images directly from an SD card.
